@@ -3,8 +3,8 @@
 
 import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
 
-interface userContextType {
-    user: null,
+interface UserContextType {
+    user: any,
     login:  Dispatch<SetStateAction<any>>,
     logout: Dispatch<SetStateAction<any>>,
 }
@@ -13,7 +13,7 @@ interface userProviderProps {
     children: ReactNode;
   }
 
-export const UserContext = createContext<userContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }:userProviderProps) => {
   const [user, setUser] = useState(null);
@@ -33,6 +33,12 @@ export const UserProvider = ({ children }:userProviderProps) => {
   );
 };
 
-export const useUserHook = () => {
-  return useContext(UserContext);
+export const useUser = () => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+
+  return context;
 };

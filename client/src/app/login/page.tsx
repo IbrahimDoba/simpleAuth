@@ -2,14 +2,15 @@
 import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useUserHook } from "../hooks/userContext";
+import { useUser } from "../hooks/userContext";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-const { login } = useUserHook()
+const { login } = useUser()
 const router = useRouter()
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>('')
   
   const LoginUser = async (e:any) => {
     e.preventDefault()
@@ -17,16 +18,20 @@ const router = useRouter()
       email: email,
       password: password,
     });
-    if (res.status === 200){
-      console.log(res)
-      const token = res.data.accessToken
-      localStorage.setItem("token", token)
-      const userEmail = await res.data.email
-      login({email:userEmail})
+    try {
+        console.log(res)
+        const token = res.data.accessToken
+        localStorage.setItem("token", token)
+        const userEmail = await res.data.email
+        login({email:userEmail})
+        router.push('/dashboard')
       
-      router.push('/dashboard')
-    }
-  };
+    } catch (err:any){
+       setError("There was an error")
+       console.log(error)
+     }}
+
+
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -90,6 +95,7 @@ const router = useRouter()
                   Sign up
                 </a>
               </p>
+              <p className="text-red-600 text-xl w-full">{error && error}</p>
             </form>
           </div>
         </div>

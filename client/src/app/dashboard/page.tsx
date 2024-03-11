@@ -1,22 +1,22 @@
 "use client";
 import React, { useEffect } from "react";
-import { useUserHook } from "../hooks/userContext";
+import { useUser } from "../hooks/userContext";
 import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
-  const { user, logout } = useUserHook();
+  const { user, logout } = useUser();
 
   const router = useRouter();
 console.log(user)
   useEffect(() => {
-    if (!user || user === null) {
+    if (!user || user === null || undefined) {
       router.push("/");
     }
   }, []);
 
   const signOut = (e: any) => {
     e.preventDefault();
-    logout();
+    logout(null);
     router.push('/')
   };
 
