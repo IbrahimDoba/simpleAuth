@@ -17,7 +17,7 @@ const login = async (req: any, res: any, next: any) => {
   const user = await User.findOne({ email: email });
   // console.log(user)
   if (!user) {
-    res.status(400).json({ error: "user does not exist" });
+    res.status(400).json({ message: "user does not exist" });
     return;
   }
   const dbPassword = user.password;
