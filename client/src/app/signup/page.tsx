@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "../loader";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
@@ -112,7 +113,11 @@ const Signup = () => {
                 </a>
               </p>
               <div className="text-red-600 text-md w-full">
-                {error && <p>{error}</p>}
+                {isloading && (
+                  <div>
+                    <Loader /> 
+                  </div>
+                )}
               </div>
             </form>
           </div>
