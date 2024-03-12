@@ -11,25 +11,34 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const [isloading , setIsLoading] = useState<boolean>(false)
 
   const LoginUser = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true)
     const res = await axios.post("https://simpleauth-yxtw.onrender.com/user/login", {
       email: email,
       password: password,
     });
     try {
       if (res) {
+
         const token = res.data.accessToken;
         // localStorage.setItem("token", token);
 
         const userEmail = res.data.email;
         login({ email: userEmail });
-
         router.push("/dashboard");
-      } 
+      } else{
+        if(res === 400) {
+          setIsLoading(false)
+
+        }
+
+      }
     } catch (err: any) {
       if (err.response) {
+        setIsLoading(false)
         // The request was made and the server responded with a status code
               console.log(err);
       }
@@ -85,17 +94,18 @@ const Login = () => {
               >
                 Sign in
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-light text-gray-500 text-primary-600 dark:text-primary-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
                   href="/signup"
-                  className="font-medium  hover:underline text-white  "
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500  text-white  "
                 >
                   Sign up
                 </a>
               </p>
-              <div className="text-red-600 text-xl w-full">
+              <div className="text-red-600 text-md w-full">
                 {error && <p>There was an Error Please Try Again!</p>}
+                {isloading  && <p >Loading please wait .... Or Try again</p>}
               </div>
             </form>
           </div>

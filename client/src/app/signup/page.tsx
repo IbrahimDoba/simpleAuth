@@ -8,11 +8,13 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
+  const [isloading , setIsLoading] = useState<boolean>(false)
 
   const router = useRouter();
 
   const SignUpUser = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true)
     const res = await axios.post("https://simpleauth-yxtw.onrender.com/user/signup", {
       email: email,
       password: password,
@@ -20,6 +22,7 @@ const Signup = () => {
     });
     if (res.status === 200) {
       router.push("/login");
+      setIsLoading(false)
     }
   };
 
@@ -74,7 +77,7 @@ const Signup = () => {
               <div className="flex items-center justify-between"></div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-blue-700 transition-all focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
+                className="w-full dark:text-white bg-primary-600 hover:bg-blue-700 transition-all focus:ring-4 text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
               >
                 Sign up
               </button>
@@ -82,11 +85,13 @@ const Signup = () => {
                 Already have an account?{" "}
                 <a
                   href="/login"
-                  className="font-medium text-white hover:underline  "
+                  className="font-medium dark:text-white text-black hover:underline  "
                 >
                   Login
                 </a>
               </p>
+              {isloading  && <p >Loading please wait .... Or Try again</p>}
+
             </form>
           </div>
         </div>
