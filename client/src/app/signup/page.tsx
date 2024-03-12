@@ -27,9 +27,9 @@ const Signup = () => {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <section className="  bg-gray-900 h-screen justify-center items-center flex">
+      <div className="flex flex-col w-full items-center justify-center px-6 py-8 mx-auto ">
+        <div className="w-[50%]  bg-white rounded-lg shadow dark:border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign up your account
@@ -77,7 +77,7 @@ const Signup = () => {
               <div className="flex items-center justify-between"></div>
               <button
                 type="submit"
-                className="w-full dark:text-white bg-primary-600 hover:bg-blue-700 transition-all focus:ring-4 text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
+                className="w-full text-white  bg-blue-700 transition-all focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
               >
                 Sign up
               </button>
@@ -90,7 +90,10 @@ const Signup = () => {
                   Login
                 </a>
               </p>
+              <div className="text-red-600 text-md w-full">
               {isloading  && <p >Loading please wait .... Or Try again</p>}
+
+              </div>
 
             </form>
           </div>
