@@ -2,25 +2,24 @@
 import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const SignUpUser = async (e:any) => {
-    e.preventDefault()
-    const res = await axios.post("http://localhost:5001/user/signup", {
+  const SignUpUser = async (e: any) => {
+    e.preventDefault();
+    const res = await axios.post("https://simpleauth-yxtw.onrender.com/user/signup", {
       email: email,
       password: password,
       confirmPass: confirmPass,
-    }, );
-    if(res.status === 200){
-      router.push('/login')
+    });
+    if (res.status === 200) {
+      router.push("/login");
     }
   };
 
@@ -42,7 +41,7 @@ const Signup = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg   block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="email@gmail.com"
                 />
               </div>
@@ -56,7 +55,7 @@ const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
               <div>
@@ -69,13 +68,13 @@ const Signup = () => {
                   onChange={(e) => setConfirmPass(e.target.value)}
                   value={confirmPass}
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg f block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
               <div className="flex items-center justify-between"></div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-blue-700 transition-all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
+                className="w-full text-white bg-primary-600 hover:bg-blue-700 transition-all focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center border "
               >
                 Sign up
               </button>
