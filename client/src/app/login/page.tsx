@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useUser } from "../hooks/userContext";
 import { useRouter } from "next/navigation";
+import Loader from "../loader";
 
 const Login = () => {
   const { login } = useUser();
@@ -18,10 +19,12 @@ const Login = () => {
     setIsLoading(true);
     if (password.length < 8) {
       setError("Password should be at least 8 characters long");
+      setIsLoading(false)
       return;
     }
     if (!/\d/.test(password)) {
-      setError("    Password must contain at least one number");
+      setError(" Password must contain at least one number");
+      setIsLoading(false)
       return;
     }
     const res = await axios.post(
@@ -40,14 +43,10 @@ const Login = () => {
         const userEmail = res.data.email;
         login({ email: userEmail });
         router.push("/dashboard");
-      } else {
-        if (res === 400) {
-          setIsLoading(false);
-        }
-      }
+      } 
     } catch (err: any) {
       if (err.response) {
-        setIsLoading(false);
+        
         // The request was made and the server responded with a status code
         console.log(err);
       }
@@ -114,6 +113,7 @@ const Login = () => {
               </p>
               <div className="text-red-600 text-md w-full">
                 {error && <p>{error}</p>}
+                {isloading && <Loader/>}
               </div>
             </form>
           </div>

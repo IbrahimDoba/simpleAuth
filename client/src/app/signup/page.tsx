@@ -15,6 +15,7 @@ const Signup = () => {
 
   const SignUpUser = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true)
     setIsLoading(true);
     if (password.length < 8) {
       setError("Password should be at least 8 characters long");
@@ -22,10 +23,12 @@ const Signup = () => {
     }
     if (!/\d/.test(password)) {
       setError("    Password must contain at least one number");
+      setIsLoading(false)
       return;
     }
     if (password !== confirmPass) {
       setError("Password does not match Confirm Password");
+      setIsLoading(false)
       return;
     }
    
