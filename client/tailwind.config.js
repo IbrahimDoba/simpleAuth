@@ -7,7 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
-      
+      // colors: {
+      //   primary: "#7856ff"
+      // },
+    },
+    screens: {
+      "max-med": { max: "765px" },
+    
     },
   },
   plugins: [],

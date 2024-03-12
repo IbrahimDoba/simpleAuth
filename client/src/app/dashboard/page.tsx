@@ -22,9 +22,9 @@ console.log(user)
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center bg-[#EEEEEE] ">
-      <div className=" w-[40%] flex flex-col rounded-xl border   justify-center items-center">
-        <h2 className="text-3xl mb-5  md:text-xl ">Welcome!! <p className="text-red-600">{user && user.email}</p>  </h2>
-        <div className="flex justify-center items-center">
+      <div className=" w-[40%] flex flex-col rounded-xl border   justify-center items-center max-med:w-[80%]">
+        <h2 className="text-3xl mb-5  max-med:text-xl ">Welcome!! <p className="text-red-600">{user && user.email}</p>  </h2>
+        <div className="flex justify-center items-center max-med:w-[100%]">
         <p>Click here to</p>  <button className="rounded-xl ml-4 bg-blue-400 p-3" onClick={signOut}>Sign Out</button>
         </div>
       </div>
