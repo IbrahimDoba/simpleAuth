@@ -8,22 +8,40 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
-  const [isloading , setIsLoading] = useState<boolean>(false)
+  const [isloading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const router = useRouter();
 
   const SignUpUser = async (e: any) => {
     e.preventDefault();
-    setIsLoading(true)
-    const res = await axios.post("https://simpleauth-yxtw.onrender.com/user/signup", {
-      email: email,
-      password: password,
-      confirmPass: confirmPass,
-    });
+    setIsLoading(true);
+    if (password.length < 8) {
+      setError("Password should be at least 8 characters long");
+      return;
+    }
+    if (!/\d/.test(password)) {
+      setError("    Password must contain at least one number");
+      return;
+    }
+    if (password !== confirmPass) {
+      setError("Password does not match Confirm Password");
+      return;
+    }
+   
+    const res = await axios.post(
+      "https://simpleauth-yxtw.onrender.com/user/signup",
+      {
+        email: email,
+        password: password,
+        confirmPass: confirmPass,
+      }
+    );
     if (res.status === 200) {
       router.push("/login");
-      setIsLoading(false)
+      setIsLoading(false);
     }
+    
   };
 
   return (
@@ -91,10 +109,8 @@ const Signup = () => {
                 </a>
               </p>
               <div className="text-red-600 text-md w-full">
-              {isloading  && <p >Loading please wait .... Or Try again</p>}
-
+                {error && <p>{error}</p>}
               </div>
-
             </form>
           </div>
         </div>

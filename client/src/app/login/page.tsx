@@ -10,37 +10,46 @@ const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-  const [isloading , setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>("");
+  const [isloading, setIsLoading] = useState<boolean>(false);
 
   const LoginUser = async (e: any) => {
     e.preventDefault();
-    setIsLoading(true)
-    const res = await axios.post("https://simpleauth-yxtw.onrender.com/user/login", {
-      email: email,
-      password: password,
-    });
+    setIsLoading(true);
+    if (password.length < 8) {
+      setError("Password should be at least 8 characters long");
+      return;
+    }
+    if (!/\d/.test(password)) {
+      setError("    Password must contain at least one number");
+      return;
+    }
+    const res = await axios.post(
+      "https://simpleauth-yxtw.onrender.com/user/login",
+      {
+        email: email,
+        password: password,
+      }
+    );
+
     try {
       if (res) {
-
         const token = res.data.accessToken;
         // localStorage.setItem("token", token);
 
         const userEmail = res.data.email;
         login({ email: userEmail });
         router.push("/dashboard");
-      } else{
-        if(res === 400) {
-          setIsLoading(false)
-
+      } else {
+        if (res === 400) {
+          setIsLoading(false);
         }
-
       }
     } catch (err: any) {
       if (err.response) {
-        setIsLoading(false)
+        setIsLoading(false);
         // The request was made and the server responded with a status code
-              console.log(err);
+        console.log(err);
       }
     }
   };
@@ -104,8 +113,7 @@ const Login = () => {
                 </a>
               </p>
               <div className="text-red-600 text-md w-full">
-                {error && <p>There was an Error Please Try Again!</p>}
-                {isloading  && <p >Loading please wait .... Or Try again</p>}
+                {error && <p>{error}</p>}
               </div>
             </form>
           </div>
